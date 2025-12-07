@@ -11,6 +11,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.hotelauroraapp.ui.theme.view.PantallaInicial
 import com.example.hotelauroraapp.ui.view.PantallaInformacionInicial
 import com.example.hotelauroraapp.ui.view.PantallaListaHabitaciones
+import com.example.hotelauroraapp.ui.view.PantallaDetalleHabitacion
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +31,13 @@ fun HotelAuroraApp() {
       //  composable("login") { LoginScreen(navController) }
         composable("info") { PantallaInformacionInicial(navController) }
         composable("rooms") { PantallaListaHabitaciones(navController) }
-        // composable("detalle/{id}") { backStackEntry ->
-        //     val id = backStackEntry.arguments?.getInt("id") ?: 0
-        //     RoomDetailScreen(navController, id)
-        // }
+        composable(
+            route = "detalle/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getInt("id") ?: 0
+            PantallaDetalleHabitacion(navController, id)
+        }
     }
 }
 
