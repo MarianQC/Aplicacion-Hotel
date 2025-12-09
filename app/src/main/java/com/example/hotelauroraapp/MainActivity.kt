@@ -18,6 +18,8 @@ import com.example.hotelauroraapp.viewmodel.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.hotelauroraapp.ui.theme.view.PantalladeLogin
 import com.example.hotelauroraapp.ui.theme.view.PantalladeRegistro
+import com.example.hotelauroraapp.ui.theme.view.GeolocationScreen
+import com.example.hotelauroraapp.ui.theme.view.PantallaMenuPrincipal
 
 
 class MainActivity : ComponentActivity() {
@@ -44,6 +46,9 @@ fun HotelAuroraApp() {
         // Registro (solo si el usuario lo pide)
         composable(route = "registro") { PantalladeRegistro(loginViewModel, navController) }
 
+        composable("Menu") { PantallaMenuPrincipal(navController) }
+
+
 
         // Pantalla de información inicial (solo después de login correcto)
         composable("info") { PantallaInformacionInicial(navController) }
@@ -51,6 +56,7 @@ fun HotelAuroraApp() {
         // Lista de habitaciones
         composable("rooms") { PantallaListaHabitaciones(navController) }
 
+        composable("ubicacion"){ GeolocationScreen(navController) }
         // Detalle de habitación
         composable(
             route = "detalle/{id}",

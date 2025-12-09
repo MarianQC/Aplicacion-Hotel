@@ -132,7 +132,7 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                             viewModel.loginUsuario(cedula, password) { success, resultado ->
                                 mensaje = resultado
                                 if (success) {
-                                    navController.navigate("info")
+                                    navController.navigate("Menu")
                                 }
                             }
                         },
