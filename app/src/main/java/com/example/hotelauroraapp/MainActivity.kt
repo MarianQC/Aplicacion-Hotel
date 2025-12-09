@@ -14,6 +14,12 @@ import com.example.hotelauroraapp.ui.view.PantallaListaHabitaciones
 import com.example.hotelauroraapp.ui.view.PantallaDetalleHabitacion
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.example.hotelauroraapp.viewmodel.LoginViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.hotelauroraapp.ui.theme.view.PantalladeLogin
+import com.example.hotelauroraapp.ui.theme.view.PantalladeRegistro
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +32,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HotelAuroraApp() {
     val navController = rememberNavController()
+    val loginViewModel: LoginViewModel = viewModel()
+
     NavHost(navController = navController, startDestination = "Inicio") {
+        // Splash inicial
         composable("Inicio") { PantallaInicial(navController) }
-      //  composable("login") { LoginScreen(navController) }
+
+        // Login
+        composable("login") { PantalladeLogin(loginViewModel, navController) }
+
+        // Registro (solo si el usuario lo pide)
+        composable(route = "registro") { PantalladeRegistro(loginViewModel, navController) }
+
+
+        // Pantalla de información inicial (solo después de login correcto)
         composable("info") { PantallaInformacionInicial(navController) }
+
+        // Lista de habitaciones
         composable("rooms") { PantallaListaHabitaciones(navController) }
+
+        // Detalle de habitación
         composable(
             route = "detalle/{id}",
             arguments = listOf(navArgument("id") { type = NavType.IntType })

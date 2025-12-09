@@ -23,7 +23,7 @@ fun PantallaInicial(navController: NavHostController) {
     // Efecto que se ejecuta al entrar en la pantalla
     LaunchedEffect(Unit) {
         delay(4000) // espera 4 segundos
-        navController.navigate("info") {
+        navController.navigate("login") {
             popUpTo("Inicio") { inclusive = true }
             // elimina la pantalla inicial de la pila para que no se pueda volver atrás
         }
