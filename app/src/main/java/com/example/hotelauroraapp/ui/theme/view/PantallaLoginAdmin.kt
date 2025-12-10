@@ -71,7 +71,7 @@ fun PantallaLoginAdmin(viewModel: AdminViewModel, navController: NavController) 
                     }
 
                     Text(
-                        text = "🔐 Acceso Administrativo",
+                        text = "Acceso Administrativo",
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = AzulHotel

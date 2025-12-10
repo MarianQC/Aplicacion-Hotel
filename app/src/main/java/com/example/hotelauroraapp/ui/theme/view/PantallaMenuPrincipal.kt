@@ -118,38 +118,6 @@ fun PantallaMenuPrincipal(navController: NavHostController) {
                 }
             }
 
-
-            item {
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-
-            item {
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-
-            item {
-                OutlinedButton(
-                    onClick = { navController.navigate("admin_login") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = AzulHotel
-                    )
-                ) {
-                    Text(
-                        " Acceso Administrador",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            }
-
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }

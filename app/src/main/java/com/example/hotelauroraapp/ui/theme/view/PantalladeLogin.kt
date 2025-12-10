@@ -179,8 +179,6 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
 
-
-
                     // Enlace para crear cuenta
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -201,6 +199,26 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                                 color = AzulHotel
                             )
                         }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Botón de acceso de administrador
+                    OutlinedButton(
+                        onClick = { navController.navigate("admin_login") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = AzulHotel
+                        )
+                    ) {
+                        Text(
+                            text = "Acceso Administrador",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
                     }
                 }
             }
