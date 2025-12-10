@@ -1,9 +1,11 @@
 package com.example.hotelauroraapp.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.hotelauroraapp.data.entity.UsuarioEntity
 
 @Dao
@@ -21,4 +23,13 @@ interface Usuariodao {
     @Query("SELECT * FROM usuarios")
     suspend fun getAllUsuarios(): List<UsuarioEntity>
 
+    @Update
+    suspend fun actualizar(usuario: UsuarioEntity)
+
+    @Delete
+    suspend fun eliminar(usuario: UsuarioEntity)
+
+    @Query("SELECT * FROM usuarios WHERE cedula = :cedula LIMIT 1")
+    suspend fun obtenerPorCedula(cedula: String): UsuarioEntity?
 }
+

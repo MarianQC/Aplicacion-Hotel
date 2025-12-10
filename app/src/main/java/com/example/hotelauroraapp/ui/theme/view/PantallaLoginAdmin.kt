@@ -14,18 +14,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.hotelauroraapp.viewmodel.LoginViewModel
+import com.example.hotelauroraapp.viewmodel.AdminViewModel
 import com.example.hotelauroraapp.ui.theme.AzulHotel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
+fun PantallaLoginAdmin(viewModel: AdminViewModel, navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        "Hotel Aurora",
+                        "Administrador - Hotel Aurora",
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -59,11 +59,10 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    var cedula by remember { mutableStateOf("") }
+                    var username by remember { mutableStateOf("") }
                     var password by remember { mutableStateOf("") }
                     var mensaje by remember { mutableStateOf("") }
 
-                    // Efecto para ocultar el mensaje después de 4 segundos
                     LaunchedEffect(mensaje) {
                         if (mensaje.isNotEmpty()) {
                             kotlinx.coroutines.delay(4000)
@@ -71,9 +70,8 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                         }
                     }
 
-                    // Título
                     Text(
-                        text = "Bienvenido",
+                        text = "🔐 Acceso Administrativo",
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = AzulHotel
@@ -82,19 +80,19 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "Inicia sesión en tu cuenta",
+                        text = "Ingresa tus credenciales de administrador",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
                     )
 
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    // Campo de Cédula
                     OutlinedTextField(
-                        value = cedula,
-                        onValueChange = { cedula = it },
-                        label = { Text("Cédula") },
-                        placeholder = { Text("Ingresa tu cédula") },
+                        value = username,
+                        onValueChange = { username = it },
+                        label = { Text("Usuario") },
+                        placeholder = { Text("admin") },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
@@ -107,7 +105,6 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Campo de Contraseña
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
@@ -126,13 +123,12 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // Botón de Login
                     Button(
                         onClick = {
-                            viewModel.loginUsuario(cedula, password) { success, resultado ->
+                            viewModel.loginAdmin(username, password) { success, resultado ->
                                 mensaje = resultado
                                 if (success) {
-                                    navController.navigate("Menu")
+                                    navController.navigate("admin_panel")
                                 }
                             }
                         },
@@ -145,7 +141,7 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                         )
                     ) {
                         Text(
-                            text = "Iniciar Sesión",
+                            text = "Ingresar como Admin",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -154,7 +150,6 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Mensaje de error/éxito
                     if (mensaje.isNotEmpty()) {
                         Card(
                             modifier = Modifier.fillMaxWidth(),
@@ -171,36 +166,18 @@ fun PantalladeLogin(viewModel: LoginViewModel, navController: NavController) {
                                 style = MaterialTheme.typography.bodySmall
                             )
                         }
-                        Spacer(modifier = Modifier.height(16.dp))
                     }
 
-                    HorizontalDivider(
-                        modifier = Modifier.padding(vertical = 16.dp),
-                        color = MaterialTheme.colorScheme.outlineVariant
-                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-
-
-                    // Enlace para crear cuenta
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
+                    TextButton(
+                        onClick = { navController.navigate("login") }
                     ) {
                         Text(
-                            text = "¿No tienes cuenta?",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            text = "← Volver al login de usuarios",
+                            fontWeight = FontWeight.Bold,
+                            color = AzulHotel
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        TextButton(
-                            onClick = { navController.navigate("registro") }
-                        ) {
-                            Text(
-                                text = "Crear una",
-                                fontWeight = FontWeight.Bold,
-                                color = AzulHotel
-                            )
-                        }
                     }
                 }
             }

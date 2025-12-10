@@ -15,12 +15,14 @@ import com.example.hotelauroraapp.ui.view.PantallaDetalleHabitacion
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.hotelauroraapp.viewmodel.LoginViewModel
+import com.example.hotelauroraapp.viewmodel.AdminViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.hotelauroraapp.ui.theme.view.PantalladeLogin
 import com.example.hotelauroraapp.ui.theme.view.PantalladeRegistro
 import com.example.hotelauroraapp.ui.theme.view.GeolocationScreen
 import com.example.hotelauroraapp.ui.theme.view.PantallaMenuPrincipal
-
+import com.example.hotelauroraapp.ui.theme.view.PantallaLoginAdmin
+import com.example.hotelauroraapp.ui.theme.view.PantallaAdminPanel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,36 +30,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HotelAuroraApp()
-            }
         }
     }
+}
+
 @Composable
 fun HotelAuroraApp() {
     val navController = rememberNavController()
     val loginViewModel: LoginViewModel = viewModel()
+    val adminViewModel: AdminViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = "Inicio") {
-        // Splash inicial
         composable("Inicio") { PantallaInicial(navController) }
-
-        // Login
         composable("login") { PantalladeLogin(loginViewModel, navController) }
-
-        // Registro (solo si el usuario lo pide)
-        composable(route = "registro") { PantalladeRegistro(loginViewModel, navController) }
-
+        composable("registro") { PantalladeRegistro(loginViewModel, navController) }
         composable("Menu") { PantallaMenuPrincipal(navController) }
-
-
-
-        // Pantalla de información inicial (solo después de login correcto)
         composable("info") { PantallaInformacionInicial(navController) }
-
-        // Lista de habitaciones
         composable("rooms") { PantallaListaHabitaciones(navController) }
+        composable("ubicacion") { GeolocationScreen(navController) }
 
-        composable("ubicacion"){ GeolocationScreen(navController) }
-        // Detalle de habitación
+        // Rutas de administrador
+        composable("admin_login") { PantallaLoginAdmin(adminViewModel, navController) }
+        composable("admin_panel") { PantallaAdminPanel(adminViewModel, navController) }
+
         composable(
             route = "detalle/{id}",
             arguments = listOf(navArgument("id") { type = NavType.IntType })
@@ -67,8 +62,5 @@ fun HotelAuroraApp() {
         }
     }
 }
-
-
-
 
 
